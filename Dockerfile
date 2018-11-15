@@ -1,28 +1,23 @@
 # Open Monitoring Distribution
 #
-# Forked from https://github.com/jwarlander/docker-omd
 #
-## Version: 0.1
-FROM ubuntu:12.04
-MAINTAINER Fabian Stäber, fabian@fstab.de
+## Version: 0.2
+FROM centos:7
+MAINTAINER Nhan Pham T., phamthanhnhan14@gmail.com
 
 # Make sure package repository is up to date
-RUN apt-get update
-RUN apt-get upgrade -y
+RUN yum -y update &&\
+    yum clean all
+RUN yum install -y epel-release
 
-# Install OMD, see http://labs.consol.de/OMD/
-RUN gpg --keyserver keys.gnupg.net --recv-keys F8C1CA08A57B9ED7
-RUN gpg --armor --export F8C1CA08A57B9ED7 | apt-key add -
-RUN echo "deb http://labs.consol.de/repo/stable/ubuntu precise main" >> /etc/apt/sources.list
-RUN apt-get update
-RUN apt-get install -y libpython2.7 omd
-
+# Install check-mk-raw 
+RUN yum install -y https://mathias-kettner.de/support/1.5.0p7/check-mk-raw-1.5.0p7-el7-38.x86_64.rpm
 # Set up a default site
-RUN omd create default
+RUN omd create monitoring
 # We don't want TMPFS as it requires higher privileges
-RUN omd config default set TMPFS off
+RUN omd config monitoring set TMPFS off
 # Accept connections on any IP address, since we get a random one
-RUN omd config default set APACHE_TCP_ADDR 0.0.0.0
+RUN omd config monitoring set APACHE_TCP_ADDR 0.0.0.0
 
 # Add watchdog script
 ADD entrypoint.sh /entrypoint.sh

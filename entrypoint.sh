@@ -2,6 +2,5 @@
 
 # The start script for the docker container.
 
-omd start
-service apache2 restart
+omd start monitoring
 /bin/bash
