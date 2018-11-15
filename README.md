@@ -13,9 +13,11 @@ A pre-built image is available on [Docker Hub](https://hub.docker.com/r/nhanpt14
 This will leave a shell open to access the container.
 
 Checkmk will become available on [http://172.X.X.X/monitoring](http://172.X.X.X/monitoring).
+
     docker exec -it checkmk /bin/bash
     su - monitoring
 Change your admin password:
+
     htpasswd -b -c etc/htpasswd cmkadmin password
  
 Then login is `cmkadmin` with password `password`.
