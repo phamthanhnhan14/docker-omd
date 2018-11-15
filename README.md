@@ -31,3 +31,8 @@ The Docker image can be built as follows:
     git clone https://github.com/phamthanhnhan14/docker-omd
     cd docker-omd
     docker build -t="lastest" .
+
+== Screenshot
+-----------------
+![Screenshot](Screenshot.png)
+
